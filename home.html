@@ -28,7 +28,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md">
-					<div class="panel-group">
+					<div class="panel-group" id="test">
 						<div class="panel panel-primary" id="test">
 							<div class="panel-heading">
 									<h4>1.เขตตลิ่งชัน</h4>
@@ -43,20 +43,74 @@
 		database.ref("places").once('value', function(snapshot){
 			if(snapshot.exists()){
 				var content = '';
+				var i = 0;
 				snapshot.forEach(function(data){
 					var val = data.val();
+					var key = Object.keys(snapshot.val())[i];
 					content +='<div class="panel panel-primary">';	
 					content +='<div class="panel-body">';					
-					content += '<td> Topic :' + val.topic + '</td>';
+					content += '<td>'+ (i+1) +'). Topic :' + val.topic + '</td>';
 					content += '</div>';
+					content +='<div class="panel-body" id="someId">'+getAddress(val.latitude,val.longitude) +'</div>';	
 					content += '<div class="panel-footer">';
-					content += '<td> Description :' + val.description + '</td>';
+					content += '<td> Description :' + val.description + '</td>';					
+					content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\''+ key+'\')">DELETE </button> </td>';
 					content += '</div>';
-					content +='</div>';	
+					content += '</div>';
+					i++;
 				});
 				$('#test').append(content);
 			}
 		});
 	</script>
+	<script>
+		function displayLocation(latitude,longitude){
+		  var request = new XMLHttpRequest();
+   
+		  var method = 'GET';
+		  var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true';
+		  var async = true;
+  
+		  request.open(method, url, async);
+		  request.onreadystatechange = function(){
+			if(request.readyState == 4 && request.status == 200){
+			  var data = JSON.parse(request.responseText);
+			  var address = data.results[0];
+			  document.getElementById('someId').innerHTML += address.formatted_address;
+			}
+		  };
+		  request.send();
+		};
+  
+		var successCallback = function(position){
+		  var x = position.coords.latitude;
+		  var y = position.coords.longitude;
+		  displayLocation(x,y);
+		};
+  
+		var errorCallback = function(error){
+		  var errorMessage = 'Unknown error';
+		  switch(error.code) {
+			case 1:
+			  errorMessage = 'Permission denied';
+			  break;
+			case 2:
+			  errorMessage = 'Position unavailable';
+			  break;
+			case 3:
+			  errorMessage = 'Timeout';
+			  break;
+		  }
+		  document.write(errorMessage);
+		};
+  
+		var options = {
+		  enableHighAccuracy: true,
+		  timeout: 20000,
+		  maximumAge: 0
+		};
+  
+		navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
+	  </script>	
 </body>
 </html>
