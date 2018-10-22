@@ -51,10 +51,10 @@
 					content +='<div class="panel-body">';					
 					content += '<td>'+ (i+1) +'). Topic :' + val.topic + '</td>';
 					content += '</div>';
-					content +='<div class="panel-body" id="someId">'+getAddress(val.latitude,val.longitude) +'</div>';	
-					content += '<div class="panel-footer">';
-					content += '<td> Description :' + val.description + '</td>';					
-					content += '<br><br><td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\''+ key+'\')">DELETE </button> </td>';
+					content +='<div class="panel-body" id="someId">'+getAddress(val.latitude,val.longitude) +'</div>';						
+					content += '<div class="panel-body" id="someId">'+'<td> Description :' + val.description + '</td>'+'</div>';
+					content += '<div class="panel-footer">';			
+					content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\''+ key+'\')">DELETE </button> </td>';
 					content += '</div>';
 					content += '</div>';
 					i++;
@@ -110,7 +110,7 @@
 		  maximumAge: 0
 		};
   
-		navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
+		// navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
 	  </script>	
 </body>
 </html>
