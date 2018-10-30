@@ -51,10 +51,37 @@
 					content +='<div class="panel-body">';					
 					content += '<td>'+ (i+1) +'). Topic :' + val.topic + '</td>';
 					content += '</div>';
-					content += '<div class="panel-body" id="someId'+i+'">'+getAddress(val.latitude,val.longitude,i).then(console.log).catch(console.error) +'</div>';						
+					content += '<div class="panel-body" id="someId'+i+'">'+getAddress(val.latitude,val.longitude,"someId"+i).then(console.log).catch(console.error) +'</div>';			
+					// content += val.latitude;
+					// content += val.longitude;
 					content += '<div class="panel-body" id="someId">'+'<td> Description :' + val.description + '</td>'+'</div>';
 					content += '<div class="panel-footer">';			
-					content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\''+ key+'\')">DELETE </button> </td>';
+					content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/places/'+ key+'\')">DELETE </button></td>';
+					content += '</div>';
+					content += '</div>';
+					i++;
+				});
+				$('#test').append(content);
+			}
+		});
+		database.ref("Report").once('value', function(snapshot){
+			if(snapshot.exists()){
+				var content = '';			
+				var i = 0;	
+				snapshot.forEach(function(data){
+					var key = Object.keys(snapshot.val())[i];
+					content +='<div class="panel panel-primary">';	
+					content +='<div class="panel-body">';	
+					content += '<td>'+ (i+1) + '). Topic :'+(data.val().topic)+ '</td>';
+					content += '</div>';
+				//	content += '<div class="panel-body" id="someId'+i+'">'+getAddress(val.latitude,val.longitude,i).then(console.log).catch(console.error) +'</div>';
+					content += '<div class="panel-body" id="ReportID'+i+'">'+getAddress(data.val().latitude,data.val().longitude,"ReportID"+i).then(console.log).catch(console.error) +'</div>';
+					content += '<div class="panel-body">'+'<td> Description :' + (data.val().description) + '</td>'+'</div>'; 
+					content += '<div class="panel-body">'+new Date(data.val().date)+'</div>';					
+					// content += data.val().latitude;
+					// content += data.val().longitude;
+					content += '<div class="panel-footer">';
+					content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/Report/'+ key+'\')">DELETE </button></td>';
 					content += '</div>';
 					content += '</div>';
 					i++;

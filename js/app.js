@@ -6,7 +6,7 @@ window.onload=function(){
 }
 
 function delOnClick(param1){
-    var firebaseRef=firebase.database().ref("places/"+param1);
+    var firebaseRef=firebase.database().ref(param1);
     firebaseRef.remove().then(function(){
         location.reload();
     }).catch(function(error){
@@ -14,7 +14,7 @@ function delOnClick(param1){
     })
 }
 
-function getAddress (latitude, longitude,int) {
+function getAddress (latitude, longitude,id) {
     return new Promise(function (resolve, reject) {
         var request = new XMLHttpRequest();
 
@@ -29,7 +29,8 @@ function getAddress (latitude, longitude,int) {
                     var data = JSON.parse(request.responseText);
                     var address = data.results[0];
                     resolve(address.formatted_address);
-                    document.getElementById("someId"+int).innerHTML = address.formatted_address;                   
+                    document.getElementById(id).innerHTML = address.formatted_address;      
+                    console.log(address.formatted_address)             
                 }
                 else {
                     reject(request.status);
