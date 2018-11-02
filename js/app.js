@@ -16,14 +16,15 @@ function delOnClick(param1) {
 }
 
 addOnClick = (param2) => {
-    const data = database.ref("Report").child(param2).once('value', (snapshot) => {
+        database.ref("Report").child(param2).once('value', (snapshot) => {
         const data = snapshot.val()
+        console.log(data)
         firebase.database().ref("Process").push({
             latitude: data.latitude,
             longitude: data.longitude,
             topic: data.topic,
             description: data.description,
-            timestamp:Date.now()
+            date:Date.now()
         })
     }).then(value => {
         if (value) {
