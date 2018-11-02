@@ -9,9 +9,22 @@ function delOnClick(param1) {
     var firebaseRef = firebase.database().ref(param1);
     firebaseRef.remove().then(function () {
         location.reload();
+        // console.log(param1);
     }).catch(function (error) {
         console.log("NOPE");
     })
+}
+
+function addOnClick(param2){
+    window.location.push("/process.html")
+    firebaseRef = firebase.database().ref(param2);
+    // firebaseRef.push({
+    //     latitude: a,
+    //     longitude: b,
+    //     topic: c,
+    //     description: d,
+    //     image: e,        
+    // })
 }
 
 function getAddress(latitude, longitude, id) {
