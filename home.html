@@ -4,6 +4,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" ; charset="utf-8">
 	<title>Road Buddy</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/home.css">
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
@@ -82,7 +83,7 @@
 						// content += data.val().longitude;
 						content += '<div class="panel-footer">';						
 						content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/Report/' + key + '\')">Delete </button></td>';
-						content += '<td> <button id="btnAdd" align="right" type="button" class="btn btn-primary" onclick="addOnClick(\'' + key + '\')">Add to Process</button></td>';
+						content += '<td> <button id="btnAdd" type="button" class="btn btn-primary dataPanel" onclick="addOnClick(\'' + key + '\')">Add to Process</button></td>';
 						content += '</div>';
 						content += '</div>';
 						i++;

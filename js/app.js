@@ -1,3 +1,4 @@
+
 window.onload = function () {
     var firebaseRef = firebase.database().ref("places");
     firebaseRef.once('value').then(function (dataSnapshot) {
@@ -15,17 +16,36 @@ function delOnClick(param1) {
     })
 }
 
-function addOnClick(param2){
-    window.location.push("/process.html")
-    firebaseRef = firebase.database().ref(param2);
-    // firebaseRef.push({
-    //     latitude: a,
-    //     longitude: b,
-    //     topic: c,
-    //     description: d,
-    //     image: e,        
-    // })
+addOnClick=(param2)=>{
+       const data =  database.ref("Report").child(param2).once('value',(snapshot)=>{
+           const data = snapshot.val()
+            firebase.database().ref("Process").push({
+            latitude:data.latitude,
+            longitude:data.longitude,
+            topic:data.topic,
+            description:data.description,
+
+        })
+    }).then(value=>{
+        if(value){
+            database.ref("Report").child(param2).remove()
+            location.reload();
+        }
+    })
+    // database.ref("Report").child(param2).remove()
 }
+
+// function addOnClick(param2){
+//    const test = firebase.database().ref("Report").child(param2)
+//     console.log(test)
+//     // firebaseRef.push({
+//     //     latitude: a,
+//     //     longitude: b,
+//     //     topic: c,
+//     //     description: d,
+//     //     image: e,        
+//     // })
+// }
 
 function getAddress(latitude, longitude, id) {
     return new Promise(function (resolve, reject) {
