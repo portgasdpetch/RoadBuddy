@@ -262,17 +262,20 @@ function problemDone() {
 
 function getTags(problem) {
     var tags = [];
+    if(problem.accident) {
+        tags.push('Accident')
+    }
+    if(problem.roadProblem) {
+        tags.push('Road Problem')
+    }
+    if(problem.lightSystem) {
+        tags.push('Light System');
+    }
     if(problem.drainSystem) {
         tags.push('Drain System');
     }
     if(problem.electricity) {
         tags.push('Electricity');
-    }
-    if(problem.lightSystem) {
-        tags.push('Light System');
-    }
-    if(problem.roadProblem) {
-        tags.push('Road Problem')
     }
 
     return tags.map(function(tag) {
